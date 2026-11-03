@@ -1,4 +1,12 @@
-
+import personRoutes from "./routes/person.routes.js";
+import {
+  educationRouter,
+  personEducationRouter
+} from "./routes/education.routes.js";
+import {
+  experienceRouter,
+  personExperienceRouter
+} from "./routes/experience.routes.js";
 import express from "express";
 import { pool } from "./config/database.js";
 import cors from "cors";
@@ -8,6 +16,25 @@ const app = express();
 // Middlewares
 app.use(cors());
 app.use(express.json());
+
+//Experience routes
+app.use("/api/experiences", experienceRouter);
+
+app.use(
+  "/api/persons/:personId/experiences",
+  personExperienceRouter
+);
+
+//Education routes
+app.use("/api/education", educationRouter);
+
+app.use(
+  "/api/persons/:personId/education",
+  personEducationRouter
+);
+
+//Person routes
+app.use("/api/persons", personRoutes);
 
 // Rota inicial
 app.get("/", (req, res) => {
