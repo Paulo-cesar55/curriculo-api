@@ -1,5 +1,17 @@
 import personRoutes from "./routes/person.routes.js";
 import {
+  certificationRouter,
+  personCertificationRouter
+} from "./routes/certification.routes.js";
+import {
+  skillRouter,
+  personSkillsRouter
+} from "./routes/skill.routes.js";
+import {
+  projectRouter,
+  personProjectRouter
+} from "./routes/project.routes.js";
+import {
   educationRouter,
   personEducationRouter
 } from "./routes/education.routes.js";
@@ -16,6 +28,30 @@ const app = express();
 // Middlewares
 app.use(cors());
 app.use(express.json());
+
+//Certification routes
+app.use("/api/certifications", certificationRouter);
+
+app.use(
+  "/api/persons/:personId/certifications",
+  personCertificationRouter
+);
+
+//Skill routes
+app.use("/api/skills", skillRouter);
+
+app.use(
+  "/api/persons/:personId/skills",
+  personSkillsRouter
+);
+
+//Project routes
+app.use("/api/projects", projectRouter);
+
+app.use(
+  "/api/persons/:personId/projects",
+  personProjectRouter
+);
 
 //Experience routes
 app.use("/api/experiences", experienceRouter);
